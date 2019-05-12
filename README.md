@@ -24,7 +24,7 @@ Buatlah sebuah music player dengan bahasa C yang memiliki fitur play nama_lagu, 
 pthread_t tid1, tid2, tid3, tid4, tid5, tid6 ;
 
 int i=0;
-
+int total=0;
 int status=0;
 int nomor;
 int hold=0;
@@ -110,6 +110,7 @@ int y=0;
     if(filename[panjang-1] == '3' && filename[panjang-2] == 'p' && filename[panjang-3] == 'm' && filename[panjang-4] == '.')
     {
     i++;
+    total++;
     strcpy(listlagu[i],dir->d_name);
     printf("%d. %s\n",i, listlagu[i]);
 	}
@@ -153,7 +154,8 @@ void* previous(void *arg){
 	while(1){printf("\r");
 	if(status==4){
 	stop =1;
-	a=a-1;
+	if(a>1){a=a-1;}
+	else a=total;
 	status=1;
 		}
 	}
@@ -163,7 +165,8 @@ void* next(void *arg){
 	while(1){printf("\r");
         if(status==5){
         stop =1;
-        a=a+1;
+	if(a<total){a=a+1;}
+	else a=1;
 	status=1;
         }
       }
@@ -178,10 +181,10 @@ void* keluar(void *arg){
     	pthread_kill(tid4, SIGKILL);
     	pthread_kill(tid5, SIGKILL);
     	pthread_kill(tid6, SIGKILL);
-			}
+
 		}
 	}
-
+	}
 int main(void)
 {
 
@@ -202,6 +205,7 @@ int main(void)
 
     return 0;
 }
+
 ```
 
 Penjelasan:
