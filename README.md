@@ -8,7 +8,7 @@
 Buatlah sebuah music player dengan bahasa C yang memiliki fitur play nama_lagu, pause, next, prev, list lagu. Selain music player juga terdapat FUSE untuk mengumpulkan semua jenis file yang berekstensi .mp3 kedalam FUSE yang tersebar pada direktori /home/user. Ketika FUSE dijalankan, direktori hasil FUSE hanya berisi file .mp3 tanpa ada direktori lain di dalamnya. Asal file tersebut bisa tersebar dari berbagai folder dan subfolder. program mp3 mengarah ke FUSE untuk memutar musik.
 
 
-Program mp3:
+* Program mp3:
 ```
 #include<stdio.h>
 #include<string.h>
@@ -172,16 +172,16 @@ void* next(void *arg){
 void* keluar(void *arg){
         while(1){printf("\r");
 	if(status == 6){
-	pthread_join(tid1, SIGKILL);
-    	pthread_join(tid2, SIGKILL);
-    	pthread_join(tid3, SIGKILL);
-    	pthread_join(tid4, SIGKILL);
-    	pthread_join(tid5, SIGKILL);
-    	pthread_join(tid6, SIGKILL);
-
+	pthread_kill(tid1, SIGKILL);
+    	pthread_kill(tid2, SIGKILL);
+    	pthread_kill(tid3, SIGKILL);
+    	pthread_kill(tid4, SIGKILL);
+    	pthread_kill(tid5, SIGKILL);
+    	pthread_kill(tid6, SIGKILL);
+			}
 		}
 	}
-	}
+
 int main(void)
 {
 
@@ -204,7 +204,18 @@ int main(void)
 }
 ```
 
-Fuse:
+Penjelasan:
+
+Kita membuat fitur2 MP3 yang terdiri dari Play, Resume, Pause, Previous, Next dan Exit. Setiap fitur yang ada perlu dibuat threadnya. MP3 ini akan mengambil lagu dari sebuah file dan memasukkannya ke dalam satu list. Lalu, MP3 ini bisa memainkan lagu serta memutar lagu.
+Step by step :
+1. Buat list lagu di dalam folder
+2. Masukkan lagu yang ada di dalam array 2D agar bisa memainkan lagu saat memanggil fungsinya
+3. Akan ada menu dan pilihan yang bisa dibuat
+4. Membuat fitur resume dan pause
+5. Membuat fitur previous, next dan exit.
+
+
+* Fuse:
 ```
 #define FUSE_USE_VERSION 28
 #include <fuse.h>
