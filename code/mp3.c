@@ -160,16 +160,16 @@ void* next(void *arg){
 void* keluar(void *arg){
         while(1){printf("\r");
 	if(status == 6){
-	pthread_join(tid1, SIGKILL);
-    	pthread_join(tid2, SIGKILL);
-    	pthread_join(tid3, SIGKILL);
-    	pthread_join(tid4, SIGKILL);
-    	pthread_join(tid5, SIGKILL);
-    	pthread_join(tid6, SIGKILL);
-
+	pthread_kill(tid1, SIGKILL);
+    	pthread_kill(tid2, SIGKILL);
+    	pthread_kill(tid3, SIGKILL);
+    	pthread_kill(tid4, SIGKILL);
+    	pthread_kill(tid5, SIGKILL);
+    	pthread_kill(tid6, SIGKILL);
+			}
 		}
 	}
-	}
+
 int main(void)
 {
 
